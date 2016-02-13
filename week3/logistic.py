@@ -10,7 +10,6 @@ y = data[0].as_matrix()
 x = data[[1,2]].as_matrix()
 
 def gradient_it(x,y,w,k,C):
-    #k*(1.0/l)*np.sum(y*x[:,i]*(1.0 - 1.0/(1.0+np.exp(-y*np.sum(w*x[i]))))) - \
     w_new = np.empty(len(w))
     l = len(x[:,0])
     for i in range(0,len(w)):
@@ -36,4 +35,7 @@ def gradient(x,y,k,C):
 def sigmoid(x,w):
     return 1.0/(1.0 + np.exp(np.sum(-w*x,1)))
 
+non_reg_mark = roc_auc_score(y, sigmoid(x, gradient(x,y,0.1,0)))
+reg_mark = roc_auc_score(y, sigmoid(x, gradient(x,y,0.1,10)))
 
+print("{0:.3f} {1:.3f}".format(non_reg_mark, reg_mark))
